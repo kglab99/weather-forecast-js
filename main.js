@@ -109,26 +109,16 @@ function getWithGeolocation (){
         geolocation = result;
         if (geolocation.address.city == undefined && geolocation.address.village != undefined) {
             city = normalizeString(geolocation.address.village);
-            getForecast()
-            .then(function(result) {
-              forecast = result;
-              today = getWeekday(forecast.location.localtime.split(' ')[0]);
-              fillDom();
-              loadingAnimationOff(); 
-            })
+
+            getWithCity();
 
         } else if (geolocation.address.city == undefined && geolocation.address.village == undefined) {
             locateWithIP();
 
         } else if (geolocation.address.city != undefined && geolocation.address.village == undefined) {
             city = normalizeString(geolocation.address.city);
-            getForecast()
-            .then(function(result) {
-              forecast = result;
-              today = getWeekday(forecast.location.localtime.split(' ')[0]);
-              fillDom();
-              loadingAnimationOff(); 
-            })
+
+            getWithCity();
 
         } else {
             locateWithIP();
@@ -138,7 +128,13 @@ function getWithGeolocation (){
 }
 
 function getWithCity() {
-   
+    getForecast()
+      .then(function(result) {
+        forecast = result;
+        today = getWeekday(forecast.location.localtime.split(' ')[0]);
+        fillDom();
+        loadingAnimationOff(); 
+      })
 
 }
 
