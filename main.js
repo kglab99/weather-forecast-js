@@ -20,22 +20,18 @@ function error(error) {
         hidePrompt();
         document.querySelector("div#locate-btn").style.display = "none";
         locateWithIP();
-        console.log("error 1")
       break;
       case error.POSITION_UNAVAILABLE:
         hidePrompt();
         locateWithIP();
-        console.log("error 2")
       break;
       case error.TIMEOUT:
         hidePrompt();
         locateWithIP();
-        console.log("error 3")
       break;
       case error.UNKNOWN_ERROR:
         hidePrompt();
         locateWithIP();
-        console.log("error 4")
       break;
     }
   }
@@ -46,7 +42,6 @@ function setPosition(position) {
         longitude = position.coords.longitude;
         hidePrompt();
         getWithGeolocation();
-        console.log("get with geolocation")
 }
 
 
@@ -109,43 +104,35 @@ function locateWithIP() {
 }
 
 function getWithGeolocation (){
-    city = getCity()
+    geolocation = getGeolocation()
       .then(function(result){
         geolocation = result;
-
         if (geolocation.address.city == undefined && geolocation.address.village != undefined) {
-            city = normalizeString(geolocation.address.village);
-            getForecast()
-              .then(function(result) {
-                forecast = result;
-                today = getWeekday(forecast.location.localtime.split(' ')[0]);
-                fillDom();
-                loadingAnimationOff(); 
-              })
-              console.log("1");
+            getWithCity();
 
         } else if (geolocation.address.city == undefined && geolocation.address.village == undefined) {
             locateWithIP();
-            console.log("2");
 
         } else if (geolocation.address.city != undefined && geolocation.address.village == undefined) {
-            city = normalizeString(geolocation.address.city);
-            getForecast()
-              .then(function(result) {
-                forecast = result;
-                today = getWeekday(forecast.location.localtime.split(' ')[0]);
-                fillDom();
-                loadingAnimationOff(); 
-              })
-              console.log("3");
+            getWithCity();
 
         } else {
             locateWithIP();
-            console.log("4");
         }
       
-      
         });
+}
+
+function getWithCity() {
+    city = normalizeString(geolocation.address.city);
+    getForecast()
+      .then(function(result) {
+        forecast = result;
+        today = getWeekday(forecast.location.localtime.split(' ')[0]);
+        fillDom();
+        loadingAnimationOff(); 
+      })
+
 }
 
 function getOnSearch () {
@@ -169,7 +156,7 @@ function getOnSearch () {
 // Async functions
 
 // Get user city based on coordinates from geolocation
-async function getCity() {
+async function getGeolocation() {
     try {
         const response = await fetch(`https://us1.locationiq.com/v1/reverse?key=pk.9fdc1490ae4d809ce9ece84b2c3bda46&lat=${latitude}&lon=${longitude}&format=json&accept-language=en&`, {mode: 'cors'});
         const city = await response.json();
