@@ -107,16 +107,41 @@ function getWithGeolocation (){
     city = getCity()
       .then(function(result){
         geolocation = result;
-        city = normalizeString(geolocation.address.city);
-        getForecast()
-          .then(function(result) {
-            forecast = result;
-            today = getWeekday(forecast.location.localtime.split(' ')[0]);
-            fillDom();
-            loadingAnimationOff();
-              
-          })
-      });
+
+        if (geolocation.address.city == undefined && geolocation.address.village != undefined) {
+            city = normalizeString(geolocation.address.village);
+            getForecast()
+              .then(function(result) {
+                forecast = result;
+                today = getWeekday(forecast.location.localtime.split(' ')[0]);
+                fillDom();
+                loadingAnimationOff(); 
+              })
+
+        } else if (geolocation.address.village == undefined && geolocation.address.village == undefined) {
+            locateWithIP();
+
+        } else if (geolocation.address.city != undefined) {
+            city = normalizeString(geolocation.address.city);
+            getForecast()
+              .then(function(result) {
+                forecast = result;
+                today = getWeekday(forecast.location.localtime.split(' ')[0]);
+                fillDom();
+                loadingAnimationOff(); 
+              })
+
+        } else {
+            locateWithIP();
+        }
+
+
+
+        
+      
+      
+      
+        });
 }
 
 function getOnSearch () {
