@@ -128,7 +128,7 @@ function getWithGeolocation (){
             locateWithIP();
             console.log("2");
 
-        } else if (geolocation.address.city != undefined) {
+        } else if (geolocation.address.city != undefined && geolocation.address.village == undefined) {
             city = normalizeString(geolocation.address.city);
             getForecast()
               .then(function(result) {
