@@ -108,12 +108,16 @@ function getWithGeolocation (){
       .then(function(result){
         geolocation = result;
         if (geolocation.address.city == undefined && geolocation.address.village != undefined) {
+            city = normalizeString(geolocation.address.village);
+
             getWithCity();
 
         } else if (geolocation.address.city == undefined && geolocation.address.village == undefined) {
             locateWithIP();
 
         } else if (geolocation.address.city != undefined && geolocation.address.village == undefined) {
+            city = normalizeString(geolocation.address.city);
+
             getWithCity();
 
         } else {
@@ -124,7 +128,6 @@ function getWithGeolocation (){
 }
 
 function getWithCity() {
-    city = normalizeString(geolocation.address.city);
     getForecast()
       .then(function(result) {
         forecast = result;
