@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Weather</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=2">
+</head>
+<body>
+    <div class="prompt">
+        <p>Location services are neccessary to provide you with accurate weather forecast.</p>
+        <p>If you want to use this functionality, kindly grant location permission.</p>
+        <p>It can be done by clicking information icon next to the page adress.</p>
+        <p>If you don't want to use geolocation, plase click the button bellow and we will try to give you our best approximate.</p>
+        <button class="no-geolocation">Don't use geolocation</button>
+    </div>
+
+    <div class="container">
+        <div class="cloud front">
+          <span class="left-front"></span>
+          <span class="right-front"></span>
+        </div>
+        <span class="sun sunshine"></span>
+        <span class="sun"></span>
+        <div class="cloud back">
+          <span class="left-back"></span>
+          <span class="right-back"></span>
+        </div>
+    </div>
+    
+    <div id="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+              <g>
+                <path
+                  d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
+                ></path>
+              </g>
+            </svg>
+            <input class="search" type="search" placeholder="Search" />
+    </div>
+    <div id="weather">
+        <div id="main">
+            <div class="top">
+                <div class="location">
+                    <img src="assets/location black.png" alt="">
+                    <p class="location">Lodz</p>
+                </div>
+                <div class="date">
+                    <img src="assets/today.png" alt="">
+                    <p class="date">21.06.2024</p>
+                </div>
+            </div>
+            <div class="center">
+                <h1 class="current-temp">
+                    25.3C
+                </h1>
+                <p class="current-text">
+                    Sunny
+                </p>
+            </div>
+            <div class="bottom">
+                <div class="pressure">
+                    <img src="assets/pressure.png" alt="">
+                    <p class="pressure">1020hPa</p>
+                </div>
+                <div class="rain">
+                    <img src="assets/rain.png" alt="">
+                    <p class="rain">50%</p>
+                </div>
+                <div class="wind">
+                    <img src="assets/wind.png" alt="">
+                    <p class="wind">12km/h</p>
+                </div>
+            </div>
+        </div>
+        <div id="hours">
+            <div class="hour hour-0">
+                <h2 class="">00:00</h2>
+                <img src="assets/hugo-211.png" alt="" class="img-0">
+                <p class="temp-0">20°C</p>
+            </div>
+            <div class="hour hour-6">
+                <h2 class="">06:00</h2>
+                <img src="assets/hugo-211.png" alt="" class="img-6">
+                <p class="temp-6">20°C</p>
+            </div>
+            <div class="hour hour12">
+                <h2 class="">12:00</h2>
+                <img src="assets/hugo-211.png" alt="" class="img-12">
+                <p class="temp-12">20°C</p>
+            </div>
+            <div class="hour hour18">
+                <h2 class="">18:00</h2>
+                <img src="assets/hugo-211.png" alt="" class="img-18">
+                <p class="temp-18">20°C</p>
+            </div>
+        </div>
+        <div id="weekdays">
+            <div class="day day-1">
+                <div class="left">
+                    <p class="day1 day">Tomorrow</p>
+                    <p class="day1-text text">Sunny</p>
+                </div>
+                <h1 class="day1-temp temp">20°C</h1>
+                <img src="assets/hugo-211.png" alt="" class="day1">
+            </div>
+            <div class="day day-2">
+                <div class="left">
+                    <p class="day2 day">Tomorrow</p>
+                    <p class="day2-text text">Sunny</p>
+                </div>
+                <h1 class="day2-temp temp">20°C</h1>
+                <img src="assets/hugo-211.png" alt="" class="day2">
+            </div>
+            <div class="day day-3">
+                <div class="left">
+                    <p class="day3 day">Tomorrow</p>
+                    <p class="day3-text text">Sunny</p>
+                </div>
+                <h1 class="day3-temp temp">20°C</h1>
+                <img src="assets/hugo-211.png" alt="" class="day3">
+            </div>
+        </div>
+
+        <div id="locate-btn">
+            <button class="locate-btn">            
+                Locate me
+            </button>
+        </div>
+    </div>
+
+
+
+    <script src="main.js"></script>
+</body>
+</html>
