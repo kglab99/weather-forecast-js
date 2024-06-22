@@ -117,9 +117,11 @@ function getWithGeolocation (){
                 fillDom();
                 loadingAnimationOff(); 
               })
+              console.log("1");
 
-        } else if (geolocation.address.village == undefined && geolocation.address.village == undefined) {
+        } else if (geolocation.address.city == undefined && geolocation.address.village == undefined) {
             locateWithIP();
+            console.log("2");
 
         } else if (geolocation.address.city != undefined) {
             city = normalizeString(geolocation.address.city);
@@ -130,9 +132,11 @@ function getWithGeolocation (){
                 fillDom();
                 loadingAnimationOff(); 
               })
+              console.log("3");
 
         } else {
             locateWithIP();
+            console.log("4");
         }
 
 
