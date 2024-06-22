@@ -1,5 +1,5 @@
 # Vanilla JS geolocation weather app
-## [Live preview](https://kglab99.github.io/weather-app-js/)
+## [Live preview](https://kglab99.github.io/weather-forecast-js/)
 
 
 ### Solved problems
