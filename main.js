@@ -1,23 +1,17 @@
+// Global variables
 let geolocation;
 let forecast;
 let today;
-let map;
 let city;
 let latitude;
 let longitude;
 
-getLocation();
+// Initialize functions on load
 
-if (window.innerWidth < 900) {
-    getLocation();
-}
+getLocation();
 
 function getLocation() {
         navigator.geolocation.getCurrentPosition(setPosition,error);
-}
-
-function hidePrompt() {
-    document.querySelector("div.prompt").style.display = "none";
 }
 
 function error(error) {
@@ -50,36 +44,15 @@ function setPosition(position) {
         getWithGeolocation();
 }
 
+
+// Event listeners
+
 document.querySelector("button.no-geolocation").addEventListener("click", () => {
     locateWithIP();
     hidePrompt();
 });
 
-function locateWithIP() {
-      getForecastIP()
-        .then(function(result) {
-          forecast = result;
-          today = getWeekday(forecast.location.localtime.split(' ')[0]);
-          fillDom();
-          loadingAnimationOff();
-          
-        })
-}
-
 document.querySelector("button.locate-btn").addEventListener("click", locate);
-
-function locate(){
-    loadingAnimationOn();
-    
-    navigator.geolocation.getCurrentPosition((position) => {
-        latitude = position.coords.latitude;
-        longitude = position.coords.longitude;
-        getWithGeolocation();
-      });
-
-}
-
-// Search input
 
 // Keyboard support
 document.addEventListener('keypress', function (e) {
@@ -89,6 +62,8 @@ document.addEventListener('keypress', function (e) {
 
     }
 })
+
+// Search input
 
 function searchLocation() {
     city = document.querySelector("input.search").value;
@@ -104,17 +79,30 @@ function searchLocation() {
  
 }
 
-// Main functions to fetch data and populate DOM, global vars
+// Locating functions
 
+function locate(){
+    loadingAnimationOn();
+    
+    navigator.geolocation.getCurrentPosition((position) => {
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+        getWithGeolocation();
+      });
 
-// Lat and long set default as not assigning them caused errors when location permission was denied on load
+}
 
-// For window load
+function locateWithIP() {
+      getForecastIP()
+        .then(function(result) {
+          forecast = result;
+          today = getWeekday(forecast.location.localtime.split(' ')[0]);
+          fillDom();
+          loadingAnimationOff();
+          
+        })
+}
 
-
-
-
-// For button click
 function getWithGeolocation (){
     city = getCity()
       .then(function(result){
@@ -131,7 +119,6 @@ function getWithGeolocation (){
       });
 }
 
-// For search input
 function getOnSearch () {
     getForecast()
             .then(function(result) {
@@ -179,13 +166,6 @@ async function getForecast() {
     }
 }
 
-function displayError() {
-    const body = document.querySelector("body");
-    const errorMessage = document.createElement("h1");
-    errorMessage.textContent = "Error. Please reload page.";
-    body.insertAdjacentElement("afterbegin",errorMessage);
-}
-
 //// Get forecast and astronomy forecast based on IP adress
 async function getForecastIP() {
     try {
@@ -195,48 +175,6 @@ async function getForecastIP() {
         return forecast;
     } catch (e) {
     }
-}
-
-
-// Additional functions
-
-// Normalize special characters to one used by weather API
-function normalizeString(str) {
-    const iMap = {
-        'ð': 'd',
-        'ı': 'i',
-        'Ł': 'L',
-        'ł': 'l',
-        'ø': 'o',
-        'ß': 'ss',
-        'ü': 'ue'
-    };
-    const iRegex = new RegExp(Object.keys(iMap).join('|'), 'g')
-    return str
-        .replace(iRegex, (m) => iMap[m])
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, '');
-    }
-
-// Convert date to weekday
-function getWeekday(date){
-    const date0 = new Date(date);
-    day = date0.getDay();
-    const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-    return weekday[day];
-}
-
-// Loading animation on/off
-function loadingAnimationOn() {
-    document.querySelector("div.container").style.display = "flex";
-    document.querySelector("div#weather").style.display = "none";
-    document.querySelector("div#search").style.display = "none";
-}
-
-function loadingAnimationOff() {
-    document.querySelector("div.container").style.display = "none";
-    document.querySelector("div#weather").style.display = "flex";
-    document.querySelector("div#search").style.display = "flex";
 }
 
 // DOM updaters
@@ -280,7 +218,62 @@ function fillDom(){
     document.querySelector("h1.day3-temp").textContent = `${forecast.forecast.forecastday[3].day.avgtemp_c}°C`;
     document.querySelector("img.day3").src = forecast.forecast.forecastday[3].day.condition.icon;
 
-
 }
+
+// Additional functions
+
+// Normalize special characters to one used by weather API
+function normalizeString(str) {
+    const iMap = {
+        'ð': 'd',
+        'ı': 'i',
+        'Ł': 'L',
+        'ł': 'l',
+        'ø': 'o',
+        'ß': 'ss',
+        'ü': 'ue'
+    };
+    const iRegex = new RegExp(Object.keys(iMap).join('|'), 'g')
+    return str
+        .replace(iRegex, (m) => iMap[m])
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, '');
+    }
+
+// Convert date to weekday
+function getWeekday(date){
+    const date0 = new Date(date);
+    day = date0.getDay();
+    const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    return weekday[day];
+}
+
+// Loading animation on/off
+function loadingAnimationOn() {
+    document.querySelector("div.container").style.display = "flex";
+    document.querySelector("div#weather").style.display = "none";
+    document.querySelector("div#search").style.display = "none";
+}
+
+function loadingAnimationOff() {
+    document.querySelector("div.container").style.display = "none";
+    document.querySelector("div#weather").style.display = "flex";
+    document.querySelector("div#search").style.display = "flex";
+}
+
+// Error display
+function displayError() {
+    const body = document.querySelector("body");
+    const errorMessage = document.createElement("h1");
+    errorMessage.textContent = "Error. Please reload page.";
+    body.insertAdjacentElement("afterbegin",errorMessage);
+}
+
+// Hide geolocaiton prompt
+function hidePrompt() {
+    document.querySelector("div.prompt").style.display = "none";
+}
+
+
 
 
