@@ -20,18 +20,22 @@ function error(error) {
         hidePrompt();
         document.querySelector("div#locate-btn").style.display = "none";
         locateWithIP();
+        console.log("error 1")
       break;
       case error.POSITION_UNAVAILABLE:
         hidePrompt();
         locateWithIP();
+        console.log("error 2")
       break;
       case error.TIMEOUT:
         hidePrompt();
         locateWithIP();
+        console.log("error 3")
       break;
       case error.UNKNOWN_ERROR:
         hidePrompt();
         locateWithIP();
+        console.log("error 4")
       break;
     }
   }
@@ -42,6 +46,7 @@ function setPosition(position) {
         longitude = position.coords.longitude;
         hidePrompt();
         getWithGeolocation();
+        console.log("get with geolocation")
 }
 
 
@@ -138,11 +143,6 @@ function getWithGeolocation (){
             locateWithIP();
             console.log("4");
         }
-
-
-
-        
-      
       
       
         });
