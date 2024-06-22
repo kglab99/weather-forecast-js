@@ -208,8 +208,8 @@ function fillDom(){
 
     document.querySelector("p.wind").textContent = `${forecast.current.wind_kph}km/h`;
 
-    document.querySelector("p.rain").textContent = `${forecast.forecast.forecastday[0].day.daily_chance_of_rain}`;
-    document.querySelector("p.pressure").textContent = `${forecast.forecast.forecastday[0].day.daily_chance_of_rain}%`;
+    document.querySelector("p.rain").textContent = `${forecast.forecast.forecastday[0].day.daily_chance_of_rain}%`;
+    document.querySelector("p.pressure").textContent = `${forecast.current.pressur_mb}hPa`;
 
     document.querySelector("p.temp-0").textContent = `${forecast.forecast.forecastday[0].hour[0].temp_c}°C`;
     document.querySelector("img.img-0").src = forecast.forecast.forecastday[0].hour[0].condition.icon;
